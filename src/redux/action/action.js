@@ -1,4 +1,4 @@
-export const FETCH_JOBS = "FETCH_JOBS";
+/* export const FETCH_JOBS = "FETCH_JOBS";
 
 export const fetchJobsAction = (url, query) => async (dispatch) => {
   try {
@@ -11,18 +11,15 @@ export const fetchJobsAction = (url, query) => async (dispatch) => {
       throw new Error("Errore nel recupero dei risultati");
     }
   } catch (error) {}
-};
-
-/* export const fetchJobs = (url, query) => async (dispatch) => {
+}; */
+import { fetchJobs } from "../reducers/job";
+export const fetchJobsAction = (url, query) => async (dispatch) => {
   try {
     const response = await fetch(url + query + "&limit=20");
 
     if (response.ok) {
       const { data } = await response.json();
-      dispatch({
-        type: "FETCH_JOBS_SUCCESS",
-        payload: data,
-      }); // Azione per indicare il successo del fetch
+      dispatch(fetchJobs(data));
     } else {
       throw new Error("Errore nel recupero dei risultati");
     }
@@ -30,4 +27,4 @@ export const fetchJobsAction = (url, query) => async (dispatch) => {
     // Puoi gestire gli errori qui, se necessario
     console.error("Errore nel fetch:", error.message);
   }
-}; */
+};

@@ -1,4 +1,4 @@
-import { FETCH_JOBS } from "../action/action";
+/* import { FETCH_JOBS } from "../action/action";
 
 const initialState = {
   jobs: [],
@@ -16,9 +16,9 @@ const JobReducer = (state = initialState, action) => {
   }
 };
 
-export default JobReducer;
+export default JobReducer; */
 
-/* import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   jobs: [],
@@ -29,12 +29,13 @@ const fetchJobSlice = createSlice({
   name: "fetchJob",
   initialState,
   reducers: {
-    FETCH_JOBS_SUCCESS: (state, action) => {
-      state.status = "succeeded";
+    // Azione definita nello slice
+    fetchJobs: (state, action) => {
       state.jobs = action.payload;
     },
   },
 });
 
-export const { FETCH_JOBS_SUCCESS } = fetchJobSlice.actions;
-export default fetchJobSlice.reducer; */
+// Esporto solo l'azione definita nello slice
+export const { fetchJobs } = fetchJobSlice.actions;
+export default fetchJobSlice.reducer;
