@@ -1,12 +1,5 @@
-import {
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  ListGroupItem,
-  Button,
-} from 'react-bootstrap'
-import { StarFill } from 'react-bootstrap-icons'
+import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import { Trash } from 'react-bootstrap-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -19,26 +12,36 @@ const Favourites = () => {
   return (
     <Container>
       <Row>
-        <Col xs={10} className="mx-auto my-3">
-          <h1>Favourites</h1>
-          <Button onClick={() => navigate('/')}>Home</Button>
+        <Col xs={10} className="d-flex align-items-center mx-auto my-3">
+          <h1 className="display-4 me-auto">Preferiti</h1>
+          <Button variant="outline-primary" onClick={() => navigate('/')}>
+            Homepage
+          </Button>
         </Col>
         <Col xs={10} className="mx-auto my-3">
           <ListGroup>
-            {favourites.map((fav, i) => (
-              <ListGroupItem key={i}>
-                <StarFill
-                  className="mr-2"
-                  onClick={() =>
-                    dispatch({
-                      type: 'REMOVE_FROM_FAVOURITE',
-                      payload: fav,
-                    })
-                  }
-                />
-                <Link to={'/' + fav}>{fav}</Link>
-              </ListGroupItem>
-            ))}
+            {favourites.length > 0 ? (
+              favourites.map((fav, i) => (
+                <ListGroup.Item key={i}>
+                  <Trash
+                    color="red"
+                    className="me-2"
+                    onClick={() =>
+                      dispatch({
+                        type: 'REMOVE_FROM_FAVOURITE',
+                        payload: fav,
+                      })
+                    }
+                  />
+                  <Link to={'/' + fav}>{fav}</Link>
+                </ListGroup.Item>
+              ))
+            ) : (
+              <ListGroup.Item>
+                Nessun preferito salvato,{' '}
+                <Link to="/">torna alla Homepage</Link> per aggiungerli!
+              </ListGroup.Item>
+            )}
           </ListGroup>
         </Col>
       </Row>

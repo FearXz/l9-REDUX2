@@ -8,7 +8,6 @@ const MainSearch = () => {
   const [jobs, setJobs] = useState([])
 
   const navigate = useNavigate()
-
   const baseEndpoint = 'https://strive-benchmark.herokuapp.com/api/jobs?search='
 
   const handleChange = (e) => {
@@ -24,7 +23,7 @@ const MainSearch = () => {
         const { data } = await response.json()
         setJobs(data)
       } else {
-        alert('Error fetching results')
+        throw new Error('Errore nel recupero dei risultati')
       }
     } catch (error) {
       console.log(error)
@@ -34,9 +33,17 @@ const MainSearch = () => {
   return (
     <Container>
       <Row>
-        <Col xs={10} className="mx-auto my-3">
-          <h1>Remote Jobs Search</h1>
-          <Button onClick={() => navigate('/favourites')}>Favourites</Button>
+        <Col
+          xs={10}
+          className="d-flex flex-wrap align-items-center mx-auto my-3"
+        >
+          <h1 className="display-1 me-auto">Remote Jobs Search</h1>
+          <Button
+            variant="outline-primary"
+            onClick={() => navigate('/favourites')}
+          >
+            Preferiti
+          </Button>
         </Col>
         <Col xs={10} className="mx-auto">
           <Form onSubmit={handleSubmit}>
@@ -44,7 +51,7 @@ const MainSearch = () => {
               type="search"
               value={query}
               onChange={handleChange}
-              placeholder="type and press Enter"
+              placeholder="Scrivi e premi Enter"
             />
           </Form>
         </Col>

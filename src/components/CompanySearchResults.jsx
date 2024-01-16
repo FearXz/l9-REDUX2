@@ -17,12 +17,12 @@ const CompanySearchResults = () => {
 
   const getJobs = async () => {
     try {
-      const response = await fetch(baseEndpoint + params.companyName)
+      const response = await fetch(baseEndpoint + params.company)
       if (response.ok) {
         const { data } = await response.json()
         setJobs(data)
       } else {
-        alert('Error fetching results')
+        throw new Error('Errore nel recupero dei risultati')
       }
     } catch (error) {
       console.log(error)
@@ -32,7 +32,8 @@ const CompanySearchResults = () => {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col className="my-3">
+          <h1 className="display-4">Job posting for: {params.company}</h1>
           {jobs.map((jobData) => (
             <Job key={jobData._id} data={jobData} />
           ))}
