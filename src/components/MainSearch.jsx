@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Job from "./Job";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchJobs } from "../redux/reducers/job";
+import { fetchJobsAction } from "../redux/action/action";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
@@ -21,7 +21,7 @@ const MainSearch = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(fetchJobs(baseEndpoint, query));
+    dispatch(fetchJobsAction(baseEndpoint, query));
   };
 
   return (
