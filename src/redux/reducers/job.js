@@ -1,18 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { SET_JOBS } from "../action/action";
+import { setJobs } from "../action/action";
 
 const initialState = {
   jobs: [],
 };
 
-const fetchJobSlice = createSlice({
-  name: "fetchJob",
-  initialState,
-  reducers: {
-    fetchJob: (state, action) => {
-      state.jobs = action.payload;
-    },
-  },
-});
+const JobReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_JOBS:
+      return {
+        ...state,
+        jobs: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
 export const fetchJobs = (url, query) => async (dispatch) => {
   try {
@@ -20,12 +23,11 @@ export const fetchJobs = (url, query) => async (dispatch) => {
 
     if (response.ok) {
       const { data } = await response.json();
-      dispatch(fetchJob(data));
+      dispatch(setJobs(data));
     } else {
       throw new Error("Errore nel recupero dei risultati");
     }
   } catch (error) {}
 };
 
-export const { fetchJob } = fetchJobSlice.actions;
-export default fetchJobSlice.reducer;
+export default JobReducer;
